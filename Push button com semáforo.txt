@@ -1,0 +1,35 @@
+// C++ code
+
+int buttonState = 0, cont=0;
+
+void setup()
+{
+  pinMode(10, INPUT);
+  pinMode(1,OUTPUT);//VERDE
+  pinMode(2,OUTPUT);//AMARELO
+  pinMode(3,OUTPUT);//VERMELHO
+}
+
+void loop()
+{
+    buttonState = digitalRead(10);
+    if(buttonState == HIGH){
+      
+    digitalWrite(1, HIGH);//VERDE LIGADO
+    digitalWrite(2, LOW);
+    digitalWrite(3, LOW);
+    delay(2000);
+    
+    digitalWrite(1, LOW);
+    digitalWrite(2, HIGH);//AMARELO LIGADO
+    digitalWrite(3, LOW);
+    delay(2000);
+    
+    digitalWrite(1, LOW);
+    digitalWrite(2, LOW);
+    digitalWrite(3, HIGH);// VERMELHO LIGADO
+    delay(2000);
+    digitalWrite(3, LOW);
+      	
+    }
+ }
