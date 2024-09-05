@@ -1,0 +1,80 @@
+
+#define R 3
+#define B 5
+#define G 6
+
+void setup()
+{
+  Serial.begin(9600);
+  pinMode(R, OUTPUT);
+  pinMode(G, OUTPUT);
+  pinMode(B, OUTPUT);
+  
+  
+}
+
+void loop()
+{
+  analogWrite(R, 200);
+  analogWrite(G, 0);
+  analogWrite(B, 0);
+  Serial.println("Cor VERMELHO");
+  delay(3000);
+  
+  analogWrite(R, 200);
+  analogWrite(G, 200);
+  analogWrite(B, 0);
+  Serial.println("Cor AMARELO");
+  delay(3000);
+  
+  analogWrite(R, 100);
+  analogWrite(G, 200);
+  analogWrite(B, 0);
+  Serial.println("Cor VERDE LIMÃO");
+  delay(3000);
+    
+  analogWrite(R, 0);
+  analogWrite(B, 0);
+  analogWrite(G, 200);
+  Serial.println("Cor VERDE");
+  delay(3000);
+  
+  analogWrite(R, 0);
+  analogWrite(G, 200);
+  analogWrite(B, 200);
+  Serial.println("Cor AZUL CIANO");
+  delay(3000);
+  
+  analogWrite(R, 0);
+  analogWrite(G, 0);
+  analogWrite(B, 255);
+  Serial.println("Cor AZUL");
+  delay(3000);
+  
+  analogWrite(R, 200);
+  analogWrite(G, 0);
+  analogWrite(B, 150);
+  Serial.println("Cor ROSA");
+  delay(3000);
+  
+  analogWrite(R, 255);
+  analogWrite(G, 100);
+  analogWrite(B, 255);
+  Serial.println("cor ROSA CLARO");
+  delay(3000);
+  
+  analogWrite(R, 255);
+  analogWrite(G, 255);
+  analogWrite(B, 255);
+  Serial.println("cor BRANCO");
+  delay(3000);
+  
+  
+ 
+  
+  /*analogWrite(R, 100);
+  analogWrite(G, 100);
+  analogWrite(B, 255);
+  Serial.println("cor TESTE");
+  delay(3000);*/
+}
