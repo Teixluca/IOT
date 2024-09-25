@@ -1,0 +1,22 @@
+#include<LiquidCrystal.h>
+
+const int sensorT = A0;
+float temperatura;
+
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);// 
+
+void setup()
+{
+ lcd.begin(16, 2);
+}
+
+void loop()
+{
+ 
+  temperatura = ((analogRead(sensorT) * (5.0 / 1023)) - 0.5) * 100;
+
+  lcd.setCursor(2,0);         
+  lcd.print("TEMPERATURA:"); 
+  lcd.setCursor(5,1);        
+  lcd.print(temperatura);    
+  }
