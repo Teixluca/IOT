@@ -1,0 +1,141 @@
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+// DEFINIÇÕES
+#define endereco  0x27 // Endereços comuns: 0x27, 0x3F
+#define colunas   16
+#define linhas    2
+
+#define vermelho 6
+#define amarelo 5
+#define verde 4
+#define vrmP 2
+#define vrdP 3
+
+// INSTANCIANDO OBJETOS
+LiquidCrystal_I2C lcd(endereco, colunas, linhas);
+
+int cont = 0;
+
+void setup()
+{
+  
+  lcd.init(); // INICIA A COMUNICAÇÃO COM O DISPLAY
+  lcd.backlight(); // LIGA A ILUMINAÇÃO DO DISPLAY
+  lcd.clear(); // LIMPA O DISPLAY
+
+  lcd.print("- Ola, Mundo! -");
+  delay(100); // DELAY DE 5 SEGUNDOS
+  lcd.setCursor(0, 1); // POSICIONA O CURSOR NA PRIMEIRA COLUNA DA LINHA 2
+  lcd.print("Fim do Setup ()");
+  delay(100); // DELAY DE 5 SEGUNDOS
+  
+  lcd.noBacklight(); // DESLIGA A ILUMINAÇÃO DO DISPLAY
+  delay(100); // DELAY DE 2 SEGUNDOS
+  lcd.backlight(); // LIGA A ILUMINAÇÃO DO DISPLAY
+  delay(100); // DELAY DE 2 SEGUNDOS
+  
+  lcd.clear(); // LIMPA O DISPLAY
+  //lcd.noBacklight(); // DESLIGA A ILUMINAÇÃO DO DISPLAY
+  
+  
+  Wire.begin();
+  Serial.begin(9600);
+  Serial.println("\nI2C Scanner");
+  
+  pinMode(vermelho, OUTPUT);
+  pinMode(amarelo, OUTPUT);
+  pinMode(verde, OUTPUT);
+}
+
+void loop()
+{
+ 
+    byte error, address;
+    int nDevices;
+    Serial.println("Scanning...");
+    nDevices = 0;
+    for(address = 1; address < 127; address++ ) 
+    {
+      // The i2c_scanner uses the return value of
+      // the Write.endTransmisstion to see if
+      // a device did acknowledge to the address.
+      Wire.beginTransmission(address);
+      error = Wire.endTransmission();
+
+      if (error == 0)
+      {
+        Serial.print("I2C device found at address 0x");
+        if (address<16) 
+          Serial.print("0");
+        Serial.print(address,HEX);
+        Serial.println("  !");
+        nDevices++;
+      }
+      else if (error==4) 
+      {
+        Serial.print("Unknow error at address 0x");
+        if (address<16) 
+          Serial.print("0");
+        Serial.println(address,HEX);
+      }    
+    }
+    if (nDevices == 0)
+      Serial.println("No I2C devices found\n");
+    else
+      Serial.println("done\n");
+    delay(500);           // wait 5 seconds for next scan
+   
+  
+  
+  
+  digitalWrite(vermelho, LOW );
+  digitalWrite(amarelo, LOW);
+  digitalWrite(verde, HIGH);
+  digitalWrite(vrdP, LOW);
+  digitalWrite(vrmP, HIGH);
+  
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Car: VERDE");
+  lcd.setCursor(0, 1);
+  lcd.print("Ped: VERMELHO");
+  delay(3000); 
+  lcd.clear();
+  digitalWrite(vrmP, HIGH);
+  digitalWrite(vermelho, LOW);
+  digitalWrite(verde, LOW);
+  
+
+    lcd.clear();
+    lcd.setCursor(0, 0);
+  	lcd.print("Car: AMARELO");
+    lcd.setCursor(0, 1);
+  	lcd.print("Ped: VERMELHO");
+    digitalWrite(amarelo, HIGH);
+    delay(1000); 
+
+
+  
+  digitalWrite(vrdP, HIGH);
+  digitalWrite(vrmP, LOW);
+  digitalWrite(vermelho, HIGH);
+  digitalWrite(amarelo, LOW);
+  digitalWrite(verde, LOW);
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Car: VERMELHO");
+  lcd.setCursor(0, 1);
+  lcd.print("Ped: VERDE");
+  delay(2000); 
+
+  
+  cont = 0;
+  
+  
+  /*
+  lcd.clear();
+  lcd.print("- Ola, Mundo! -");
+  lcd.setCursor(0, 1); // POSICIONA O CURSOR NA PRIMEIRA COLUNA DA LINHA 2
+  lcd.print("Fim do Setup ()");*/
+}
