@@ -1,0 +1,22 @@
+
+const int potX = A0; 
+const int potY = A1;
+
+void setup(){
+  pinMode(potX, INPUT);
+  pinMode(potY, INPUT);
+  Serial.begin(9600);
+}
+ 
+void loop(){
+  
+  
+  int ex = analogRead(potX);
+  int ey = analogRead(potY);
+  
+  Serial.print("Eixo X = ");
+  Serial.print(ex);
+  Serial.print(" / Eixo Y = ");
+  Serial.println(ey);
+  delay(100);
+}
