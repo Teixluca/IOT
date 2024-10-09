@@ -15,17 +15,17 @@ void loop(){
   int ey = analogRead(potY);
   
   if(ex < 511){
-  	Serial.print("Eixo Y = Esquerda");
+  	Serial.print("Eixo X = Esquerda");
   }
   if(ex >= 511){
-  	Serial.print("Eixo Y= Direita");
+  	Serial.print("Eixo X = Direita");
   }
   
    if(ey < 511){
-  	Serial.println(" / Eixo X = Pra Baixo");
+  	Serial.println(" / Eixo Y = Pra Baixo");
   }
   if(ey >= 511){
-  	Serial.println(" / Eixo X = Pra Cima");
+  	Serial.println(" / Eixo Y = Pra Cima");
   }
   delay(100);
 }
