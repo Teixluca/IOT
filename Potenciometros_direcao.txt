@@ -1,0 +1,31 @@
+
+const int potX = A0; 
+const int potY = A1;
+
+void setup(){
+  pinMode(potX, INPUT);
+  pinMode(potY, INPUT);
+  Serial.begin(9600);
+}
+ 
+void loop(){
+  
+  
+  int ex = analogRead(potX);
+  int ey = analogRead(potY);
+  
+  if(ex < 511){
+  	Serial.print("Eixo X = Esquerda");
+  }
+  if(ex >= 511){
+  	Serial.print("Eixo X = Direita");
+  }
+  
+   if(ey < 511){
+  	Serial.println(" / Eixo X = Pra Baixo");
+  }
+  if(ey >= 511){
+  	Serial.println(" / Eixo X = Pra Cima");
+  }
+  delay(100);
+}
