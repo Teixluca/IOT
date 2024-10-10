@@ -1,0 +1,82 @@
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+// DEFINIÇÕES
+#define endereco  0x27 // Endereços comuns: 0x27, 0x3F
+#define colunas   16
+#define linhas    2
+
+// INSTANCIANDO OBJETOS
+LiquidCrystal_I2C lcd(endereco, colunas, linhas);
+
+const int potX = A0; 
+const int potY = A1;
+
+int cont = 0;
+
+void setup() {
+  lcd.init(); // INICIA A COMUNICAÇÃO COM O DISPLAY
+  lcd.backlight(); // LIGA A ILUMINAÇÃO DO DISPLAY
+  lcd.clear(); // LIMPA O DISPLAY
+
+  //lcd.print("- Ola, Mundo! -");
+  delay(100); // DELAY DE 5 SEGUNDOS
+  lcd.setCursor(0, 1); // POSICIONA O CURSOR NA PRIMEIRA COLUNA DA LINHA 2
+  //lcd.print("Fim do Setup ()");
+  delay(100); // DELAY DE 5 SEGUNDOS
+  
+  lcd.noBacklight(); // DESLIGA A ILUMINAÇÃO DO DISPLAY
+  delay(100); // DELAY DE 2 SEGUNDOS
+  lcd.backlight(); // LIGA A ILUMINAÇÃO DO DISPLAY
+  delay(100); // DELAY DE 2 SEGUNDOS
+  
+  lcd.clear(); // LIMPA O DISPLAY
+  //lcd.noBacklight(); // DESLIGA A ILUMINAÇÃO DO DISPLAY
+  
+  
+  Wire.begin();
+  Serial.begin(9600);
+  Serial.println("\nI2C Scanner");
+  
+    pinMode(potX, INPUT);
+    pinMode(potY, INPUT);
+}
+
+void loop() {
+    byte error, address;
+    int nDevices;
+    nDevices = 0;
+
+    int ex = analogRead(potX);
+    int ey = analogRead(potY);
+
+    if (ex < 500) {
+        lcd.setCursor(0, 0);
+        lcd.print("Esquerda");
+    } 
+  	if (ex > 522) {
+        lcd.setCursor(0, 0);
+        lcd.print(" Direita");
+    } 
+  	
+  	if(ex> 500 && ex < 522){
+        lcd.setCursor(0, 0);
+        lcd.print("  Parado");
+    }
+
+    if (ey < 500) {		
+        lcd.setCursor(0, 1);
+        lcd.print("  Baixo");      
+    } 
+  
+  	if (ey > 522){ 	
+        lcd.setCursor(0, 1);
+        lcd.print("   Cima");
+    } 
+  	
+  	if(ey > 500 && ey <522){     	
+        lcd.setCursor(0, 1);
+        lcd.print(" Parado");
+    }
+  
+}
